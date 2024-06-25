@@ -90,12 +90,12 @@ local theme = lush(function(injected_functions)
 		--
 		-- ColorColumn    { }, -- Columns set with 'colorcolumn'
 		-- Conceal        { }, -- Placeholder characters substituted for concealed text (see 'conceallevel')
-		Cursor({ fg = background, bg = gold }), -- Character under the cursor
+		Cursor            { fg = background, bg = gold }, -- Character under the cursor
 		-- CurSearch      { }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
 		-- lCursor        { }, -- Character under the cursor when |language-mapping| is used (see 'guicursor')
 		-- CursorIM       { }, -- Like Cursor, but used when in IME mode |CursorIM|
-		CursorColumn({ bg = background.lighten(5) }), -- Screen-column at the cursor, when 'cursorcolumn' is set.
-		CursorLine({ bg = background.lighten(5) }), -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
+		CursorColumn      { bg = background.lighten(5) }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
+		CursorLine        { bg = background.lighten(5) }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
 		-- Directory      { }, -- Directory names (and other special names in listings)
 		-- DiffAdd        { }, -- Diff mode: Added line |diff.txt|
 		-- DiffChange     { }, -- Diff mode: Changed line |diff.txt|
@@ -111,10 +111,10 @@ local theme = lush(function(injected_functions)
 		-- SignColumn     { }, -- Column where |signs| are displayed
 		-- IncSearch      { }, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
 		-- Substitute     { }, -- |:substitute| replacement text highlighting
-		-- LineNr         { }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
-		-- LineNrAbove    { }, -- Line number for when the 'relativenumber' option is set, above the cursor line
-		-- LineNrBelow    { }, -- Line number for when the 'relativenumber' option is set, below the cursor line
-		-- CursorLineNr   { }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
+		-- LineNr({ fg = text }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+		LineNrAbove       { fg = text.mix(background, 50).desaturate(45) }, -- Line number for when the 'relativenumber' option is set, above the cursor line
+		LineNrBelow       { fg = text.mix(background, 50).desaturate(45) }, -- Line number for when the 'relativenumber' option is set, below the cursor line
+		CursorLineNr      { fg = text, gui = "bold" }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
 		-- CursorLineFold { }, -- Like FoldColumn when 'cursorline' is set for the cursor line
 		-- CursorLineSign { }, -- Like SignColumn when 'cursorline' is set for the cursor line
 		-- MatchParen     { }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
@@ -123,7 +123,7 @@ local theme = lush(function(injected_functions)
 		-- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
 		-- MoreMsg        { }, -- |more-prompt|
 		-- NonText        { }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-		Normal({ bg = background, fg = space_white }), -- Normal text
+		Normal            { bg = background, fg = space_white }, -- Normal text
 		-- NormalFloat    { }, -- Normal text in floating windows.
 		-- FloatBorder    { }, -- Border of floating windows.
 		-- FloatTitle     { }, -- Title of floating windows.
@@ -144,16 +144,17 @@ local theme = lush(function(injected_functions)
 		-- SpellCap       { }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
 		-- SpellLocal     { }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
 		-- SpellRare      { }, -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
-		StatusLine({ fg = background, bg = african_violet }), -- Status line of current window
-		StatusLineNC({ fg = background, bg = almond_creme }), -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
-		TabLine({ fg = ice.darken(50), bg = background }), -- Tab pages line, not active tab page label
-		TabLineFill({ bg = background }), -- Tab pages line, where there are no labels
-		TabLineSel({ fg = ice, bg = background.lighten(15) }), -- Tab pages line, active tab page label
+		-- StatusLine     { fg = background, bg = african_violet }, -- Status line of current window
+		-- StatusLineNC   { fg = background, bg = almond_creme }, -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
+		TabLine           { fg = ice.darken(50).desaturate(75), bg = background.darken(100) }, -- Tab pages line, not active tab page label
+		TabLineFill       { bg = background.darken(100) }, -- Tab pages line, where there are no labels
+		TabLineSel        { fg = ice, bg = background, gui = "bold" }, -- Tab pages line, active tab page label
+
 		-- Title          { }, -- Titles for output from ":set all", ":autocmd" etc.
-		Visual({ bg = bluey }), -- Visual mode selection
-		VisualNOS({ bg = bluey.darken(20) }), -- Visual mode selection when vim is "Not Owning the Selection".
-		WarningMsg({ fg = yellow }), -- Warning messages
-		-- Whitespace     { }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
+		Visual            { bg = bluey }, -- Visual mode selection
+		VisualNOS         { bg = bluey.darken(20) }, -- Visual mode selection when vim is "Not Owning the Selection".
+		WarningMsg        { fg = yellow }, -- Warning messages
+		Whitespace        { fg = background.lighten(15) }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
 		-- Winseparator   { }, -- Separator between window splits. Inherts from |hl-VertSplit| by default, which it will replace eventually.
 		-- WildMenu       { }, -- Current match in 'wildmenu' completion
 		-- WinBar         { }, -- Window bar of current window
@@ -167,19 +168,19 @@ local theme = lush(function(injected_functions)
 		--
 		-- Uncomment and edit if you want more specific syntax highlighting.
 
-		Comment({ fg = Normal.bg.lighten(30) }), -- Any comment
+		Comment           { fg = Normal.bg.lighten(30) }, -- Any comment
 
 		-- Constant       { }, -- (*) Any constant
-		String({ fg = green }), --   A string constant: "this is a string"
-		Character({ fg = String.fg.lighten(60) }), --   A character constant: 'c', '\n'
-		-- Number         { }, --   A number constant: 234, 0xff
-		-- Boolean        { }, --   A boolean constant: TRUE, false
+		String            { fg = green }, --   A string constant: "this is a string"
+		Character         { fg = String.fg.lighten(60) }, --   A character constant: 'c', '\n'
+		Number            { fg = tomato }, --   A number constant: 234, 0xff
+		Boolean           { fg = butterscotch, gui = "italic" }, --   A boolean constant: TRUE, false
 		-- Float          { }, --   A floating point constant: 2.3e10
 
-		Identifier({ fg = violet_creme }), -- (*) Any variable name
-		Function({ fg = magenta }), --   Function name (also: methods for classes)
+		Identifier        { fg = violet_creme }, -- (*) Any variable name
+		Function          { fg = magenta }, --   Function name (also: methods for classes)
 
-		Statement({ fg = gold }), -- (*) Any statement
+		Statement         { fg = gold }, -- (*) Any statement
 		-- Conditional    { }, --   if, then, else, endif, switch, etc.
 		-- Repeat         { }, --   for, do, while, etc.
 		-- Label          { }, --   case, default, etc.
@@ -193,12 +194,12 @@ local theme = lush(function(injected_functions)
 		-- Macro          { }, --   Same as Define
 		-- PreCondit      { }, --   Preprocessor #if, #else, #endif, etc.
 
-		Type({ fg = violet, gui = "italic" }), -- (*) int, long, char, etc.
+		Type              { fg = violet, gui = "italic" }, -- (*) int, long, char, etc.
 		-- StorageClass   { }, --   static, register, volatile, etc.
 		-- Structure      { }, --   struct, union, enum, etc.
 		-- Typedef        { }, --   A typedef
 
-		-- Special        { }, -- (*) Any special symbol
+		Special           { fg = ice }, -- (*) Any special symbol
 		-- SpecialChar    { }, --   Special character in a constant
 		-- Tag            { }, --   You can use CTRL-] on this
 		-- Delimiter      { }, --   Character that needs attention
@@ -225,11 +226,11 @@ local theme = lush(function(injected_functions)
 
 		-- See :h diagnostic-highlights, some groups may not be listed, submit a PR fix to lush-template!
 		--
-		DiagnosticError({ fg = red.desaturate(50).darken(40) }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-		DiagnosticWarn({ fg = yellow.desaturate(50).darken(40) }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-		DiagnosticInfo({ fg = bluey.desaturate(50).darken(40) }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-		DiagnosticHint({ fg = blue.desaturate(50).darken(40) }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-		DiagnosticOk({ fg = green.desaturate(50).darken(40) }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+		DiagnosticError               { fg = red.mix(background, 40) }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+		DiagnosticWarn                { fg = orange.mix(background, 40) }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+		DiagnosticInfo                { fg = bluey.mix(background, 40) }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+		DiagnosticHint                { fg = yellow.mix(background, 40).desaturate(50) }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+		DiagnosticOk                  { fg = green.mix(background, 40) }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
 		-- DiagnosticVirtualTextError { } , -- Used for "Error" diagnostic virtual text.
 		-- DiagnosticVirtualTextWarn  { } , -- Used for "Warn" diagnostic virtual text.
 		-- DiagnosticVirtualTextInfo  { } , -- Used for "Info" diagnostic virtual text.
@@ -251,6 +252,122 @@ local theme = lush(function(injected_functions)
 		-- DiagnosticSignHint         { } , -- Used for "Hint" signs in sign column.
 		-- DiagnosticSignOk           { } , -- Used for "Ok" signs in sign column.
 
+		-- Git signs
+		GitSignsCurrentLineBlame      { Comment }, -- GitSignsCurrentLineBlame xxx guifg=#45475b
+		GitSignsDelete                { DiagnosticError }, -- GitSignsDelete xxx guifg=#f38ba9
+		GitSignsTopdelete             { GitSignsDelete }, -- GitSignsTopdelete xxx links to GitSignsDelete
+		GitSignsDeleteNr              { GitSignsDelete }, -- GitSignsDeleteNr xxx links to GitSignsDelete
+		GitSignsChange                { DiagnosticHint }, -- GitSignsChange xxx guifg=#f9e2b0
+		GitSignsChangedelete          { GitSignsChange }, -- GitSignsChangedelete xxx links to GitSignsChange
+		GitSignsChangeNr              { GitSignsChange }, -- GitSignsChangeNr xxx links to GitSignsChange
+		GitSignsAdd                   { DiagnosticOk }, -- GitSignsAdd    xxx guifg=#a6e3a2
+		GitSignsUntracked             { GitSignsAdd }, -- GitSignsUntracked xxx links to GitSignsAdd
+		GitSignsAddNr                 { GitSignsAdd }, -- GitSignsAddNr  xxx links to GitSignsAdd
+
+		-- Flating windows
+		NormalFloat                   { bg = background.lighten(5), fg = space_white }, -- NormalFloat    xxx guifg=#cdd6f5 guibg=#181826
+		FloatTitle                    { fg = space_white }, -- FloatTitle     xxx guifg=#a6adc9
+		FloatFooter                   { FloatTitle }, -- FloatFooter    xxx links to FloatTitle
+		FlashPrompt                   { NormalFloat }, -- FlashPrompt    xxx links to NormalFloat
+		WhichKeyFloat                 { NormalFloat }, -- WhichKeyFloat  xxx links to NormalFloat
+		FloatBorder                   { fg = gold }, -- FloatBorder    xxx guifg=#89b4fb
+		LspInfoBorder                 { FloatBorder }, -- LspInfoBorder  xxx links to FloatBorder
+		TelescopeBorder               { FloatBorder }, -- TelescopeBorder xxx links to FloatBorder
+		WhichKeyBorder                { FloatBorder }, -- WhichKeyBorder xxx links to FloatBorder
+
+		Pmenu                         { bg = background.lighten(10), fg = space_white.darken(10) }, -- Pmenu          xxx guifg=#9399b3 guibg=#2b2b3d
+		PmenuKind                     { Pmenu }, -- PmenuKind      xxx links to Pmenu
+		PmenuExtra                    { Pmenu }, -- PmenuExtra     xxx links to Pmenu
+		NoicePopupmenu                { Pmenu }, -- NoicePopupmenu xxx links to Pmenu
+		PmenuSel                      { bg = background.lighten(20), fg = space_white, gui = "bold" }, -- PmenuSel       xxx cterm=bold gui=bold guibg=#45475b
+		PmenuKindSel                  { PmenuSel }, -- PmenuKindSel   xxx links to PmenuSel
+		PmenuExtraSel                 { PmenuSel }, -- PmenuExtraSel  xxx links to PmenuSel
+		PmenuSbar                     { bg = background.lighten(15) }, -- PmenuSbar      xxx guibg=#45475b
+		PmenuThumb                    { bg = background.lighten(25) }, -- PmenuThumb     xxx guibg=#6c7087
+
+		-- Neotree
+		NeoTreeFloatBorder            { FloatBorder }, -- NeoTreeFloatBorder xxx links to FloatBorder
+		NeoTreeFloatTitle             { FloatTitle }, -- NeoTreeFloatTitle xxx links to FloatTitle
+		NeoTreeStatusLineNC           { bg = "#181826", fg = "#181826" }, -- NeoTreeStatusLineNC xxx guifg=#181826 guibg=#181826
+		NeoTreeWinSeparator           { bg = "#1e1e2f", fg = "#1e1e2f" }, -- NeoTreeWinSeparator xxx guifg=#1e1e2f guibg=#1e1e2f
+		NeoTreeVertSplit              { bg = "#1e1e2f", fg = "#1e1e2f" }, -- NeoTreeVertSplit xxx guifg=#1e1e2f guibg=#1e1e2f
+		NeoTreeTabSeparatorInactive   { bg = "#1e1e2f", fg = "#1e1e2f" }, -- NeoTreeTabSeparatorInactive xxx guifg=#1e1e2f guibg=#1e1e2f
+		NeoTreeTabSeparatorActive     { bg = "#181826", fg = "#181826" }, -- NeoTreeTabSeparatorActive xxx guifg=#181826 guibg=#181826
+		NeoTreeTabInactive            { bg = "#1e1e2f", fg = "#6c7087" }, -- NeoTreeTabInactive xxx guifg=#6c7087 guibg=#1e1e2f
+		NeoTreeTabActive              { bg = "#181826", gui = "bold", fg = "#b4beff" }, -- NeoTreeTabActive xxx cterm=bold gui=bold guifg=#b4beff guibg=#181826
+		NeoTreeFilterTerm             { gui = "bold", fg = green }, -- NeoTreeFilterTerm xxx cterm=bold gui=bold guifg=#a6e3a2
+		NeoTreeDimText                { Comment }, -- NeoTreeDimText xxx guifg=#7f849d
+		NeoTreeFileNameOpened         { fg = "#f5c2e8" }, -- NeoTreeFileNameOpened xxx guifg=#f5c2e8
+		NeoTreeTitleBar               { bg = gold, fg = background }, -- NeoTreeTitleBar xxx guifg=#181826 guibg=#89b4fb
+		NeoTreeGitStaged              { fg = green }, -- NeoTreeGitStaged xxx guifg=#a6e3a2
+		NeoTreeGitUntracked           { fg = space_white }, -- NeoTreeGitUntracked xxx guifg=#cba6f8
+		NeoTreeGitUnstaged            { fg = tomato }, -- NeoTreeGitUnstaged xxx guifg=#f38ba9
+		NeoTreeGitModified            { fg = yellow }, -- NeoTreeGitModified xxx guifg=#f9e2b0
+		NeoTreeGitIgnored             { fg = sky.desaturate(75).darken(50) }, -- NeoTreeGitIgnored xxx guifg=#6c7087
+		NeoTreeGitDeleted             { fg = tomato, gui = "strikethrough" }, -- NeoTreeGitDeleted xxx guifg=#f38ba9
+		NeoTreeGitConflict            { fg = tomato, gui = "underline" }, -- NeoTreeGitConflict xxx guifg=#f38ba9
+		NeoTreeGitAdded               { fg = green }, -- NeoTreeGitAdded xxx guifg=#a6e3a2
+		NeoTreeModified               { fg = yellow }, -- NeoTreeModified xxx guifg=#fab388
+		NeoTreeSymbolicLinkTarget     { fg = blue }, -- NeoTreeSymbolicLinkTarget xxx guifg=#f5c2e8
+		NeoTreeRootName               { gui = "bold", fg = gold }, -- NeoTreeRootName xxx cterm=bold gui=bold guifg=#89b4fb
+		NeoTreeIndentMarker           { fg = bluey.mix(background, 75) }, -- NeoTreeIndentMarker xxx guifg=#6c7087
+		NeoTreeExpander               { NeoTreeIndentMarker }, -- NeoTreeExpander xxx guifg=#6c7087
+		NeoTreeNormalNC               { bg = background, fg = space_white }, -- NeoTreeNormalNC xxx guifg=#cdd6f5 guibg=#181826
+		NeoTreeNormal                 { bg = background, fg = space_white }, -- NeoTreeNormal  xxx guifg=#cdd6f5 guibg=#181826
+		NeoTreeDirectoryIcon          { fg = bluey }, -- NeoTreeDirectoryIcon xxx guifg=#89b4fb
+		NeoTreeDirectoryName          { fg = sky }, -- NeoTreeDirectoryName xxx guifg=#89b4fb
+
+		-- Noice
+		NoiceSplitBorder              { FloatBorder }, -- NoiceSplitBorder xxx links to FloatBorder
+		NoiceSplit                    { NormalFloat }, -- NoiceSplit     xxx links to NormalFloat
+
+		NoiceCmdlinePopup             { Normal }, -- NoiceCmdlinePopup xxx links to Normal
+		NoiceCmdlinePopupBorderSearch { fg = lilac }, -- NoiceCmdlinePopupBorderSearch xxx links to DiagnosticSignWarn
+		NoiceCmdlineIconSearch        { fg = yellow }, -- NoiceCmdlineIconSearch xxx links to DiagnosticSignWarn
+		NoiceCmdlinePopupBorder       { fg = lilac }, -- NoiceCmdlinePopupBorder xxx links to DiagnosticSignInfo
+		NoiceCmdlineIcon              { fg = bluey }, -- NoiceCmdlineIcon xxx links to DiagnosticSignInfo
+		NoiceCmdlinePopupTitle        { fg = bluey }, -- NoiceCmdlinePopupTitle xxx links to DiagnosticSignInfo
+
+		NoicePopup                    { NormalFloat }, -- NoicePopup     xxx links to NormalFloat
+		NoicePopupBorder              { FloatBorder }, -- NoicePopupBorder xxx links to FloatBorder
+		NoicePopupmenuBorder          { FloatBorder }, -- NoicePopupmenuBorder xxx links to FloatBorder
+		NoicePopupmenuSelected        { PmenuSel }, -- NoicePopupmenuSelected xxx links to PmenuSel
+		NoiceScrollbar                { PmenuSbar }, -- NoiceScrollbar xxx links to PmenuSbar
+		NoiceScrollbarThumb           { PmenuThumb }, -- NoiceScrollbarThumb xxx links to PmenuThumb
+
+		NotifyBackground              { Normal }, -- NotifyBackground xxx links to Normal
+		NotifyERRORBody               { fg = space_white.darken(25) }, -- NotifyERRORBody xxx links to Normal
+		NotifyWARNBody                { fg = space_white.darken(25) }, -- NotifyWARNBody xxx links to Normal
+		NotifyINFOBody                { fg = space_white.darken(25) }, -- NotifyINFOBody xxx links to Normal
+		NotifyDEBUGBody               { fg = space_white.darken(25) }, -- NotifyDEBUGBody xxx links to Normal
+
+		NotifyERRORBorder             { DiagnosticError }, -- NotifyERRORBorder xxx guifg=#8a1f1f
+		NotifyWARNBorder              { DiagnosticWarn }, -- NotifyWARNBorder xxx guifg=#79491d
+		NotifyINFOBorder              { DiagnosticInfo }, -- NotifyINFOBorder xxx guifg=#4f6752
+		NotifyDEBUGBorder             { DiagnosticHint }, -- NotifyDEBUGBorder xxx guifg=#8b8b8b
+		NotifyTRACEBorder             { fg = magenta.mix(background, 40) }, -- NotifyTRACEBorder xxx guifg=#4f3552
+		NotifyERRORIcon               { fg = red }, -- NotifyERRORIcon xxx guifg=#f70067
+		NotifyWARNIcon                { fg = orange }, -- NotifyWARNIcon xxx guifg=#f79000
+		NotifyINFOIcon                { fg = bluey }, -- NotifyINFOIcon xxx guifg=#a9ff68
+		NotifyDEBUGIcon               { fg = yellow }, -- NotifyDEBUGIcon xxx guifg=#8b8b8b
+		NotifyTRACEIcon               { fg = magenta }, -- NotifyTRACEIcon xxx guifg=#d484ff
+		NotifyERRORTitle              { NotifyERRORIcon }, -- NotifyERRORTitle xxx guifg=#f70067
+		NotifyWARNTitle               { NotifyWARNIcon }, -- NotifyWARNTitle xxx guifg=#f79000
+		NotifyINFOTitle               { NotifyINFOIcon }, -- NotifyINFOTitle xxx guifg=#a9ff68
+		NotifyDEBUGTitle              { NotifyDEBUGIcon }, -- NotifyDEBUGTitle xxx guifg=#8b8b8b
+		NotifyTRACETitle              { NotifyTRACEIcon }, -- NotifyTRACETitle xxx guifg=#d484ff
+		NotifyINFOTitle18             { fg = "#232731" }, -- NotifyINFOTitle18 xxx guifg=#232731
+		NotifyINFOBorder18            { fg = "#202130" }, -- NotifyINFOBorder18 xxx guifg=#202130
+		NotifyINFOBody18              { bg = "#1e1e2f", fg = "#252537" }, -- NotifyINFOBody18 xxx guifg=#252537 guibg=#1e1e2f
+		NotifyINFOIcon18              { fg = "#232731" }, -- NotifyINFOIcon18 xxx guifg=#232731
+		NotifyINFOTitle19             { fg = "#232731" }, -- NotifyINFOTitle19 xxx guifg=#232731
+		NotifyINFOBorder19            { fg = "#202130" }, -- NotifyINFOBorder19 xxx guifg=#202130
+		NotifyINFOBody19              { bg = "#1e1e2f", fg = "#252537" }, -- NotifyINFOBody19 xxx guifg=#252537 guibg=#1e1e2f
+		NotifyINFOIcon19              { fg = "#232731" }, -- NotifyINFOIcon19 xxx guifg=#232731
+		NoiceAttr154                  { gui = "bold,italic", fg = "#f38ba9" }, -- NoiceAttr154   xxx cterm=bold,italic gui=bold,italic guifg=#f38ba9
+		NotifyERRORTitle20            { fg = "#271d31" }, -- NotifyERRORTitle20 xxx guifg=#271d31
+		NotifyERRORBorder20           { fg = "#221e2e" }, -- NotifyERRORBorder20 xxx guifg=#221e2e
+		NotifyERRORBody2              { bg = "#1e1e2f", fg = "#252537" }, -- NotifyERRORBody20 xxx guifg=#252537 guibg=#1e1e2f
 		-- Tree-Sitter syntax groups.
 		--
 		-- See :h treesitter-highlight-groups, some groups may not be listed,
