@@ -88,8 +88,8 @@ local theme = lush(function(injected_functions)
 		--
 		-- See :h highlight-groups
 		--
-		-- ColorColumn    { }, -- Columns set with 'colorcolumn'
-		-- Conceal        { }, -- Placeholder characters substituted for concealed text (see 'conceallevel')
+		ColorColumn    { }, -- Columns set with 'colorcolumn'
+		Conceal        { }, -- Placeholder characters substituted for concealed text (see 'conceallevel')
 		Cursor            { fg = background, bg = gold }, -- Character under the cursor
 		-- CurSearch      { }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
 		-- lCursor        { }, -- Character under the cursor when |language-mapping| is used (see 'guicursor')
@@ -123,19 +123,7 @@ local theme = lush(function(injected_functions)
 		-- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
 		-- MoreMsg        { }, -- |more-prompt|
 		-- NonText        { }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-		Normal            { bg = background, fg = space_white }, -- Normal text
-		-- NormalFloat    { }, -- Normal text in floating windows.
-		-- FloatBorder    { }, -- Border of floating windows.
-		-- FloatTitle     { }, -- Title of floating windows.
-		-- NormalNC       { }, -- normal text in non-current windows
-		-- Pmenu          { }, -- Popup menu: Normal item.
-		-- PmenuSel       { }, -- Popup menu: Selected item.
-		-- PmenuKind      { }, -- Popup menu: Normal item "kind"
-		-- PmenuKindSel   { }, -- Popup menu: Selected item "kind"
-		-- PmenuExtra     { }, -- Popup menu: Normal item "extra text"
-		-- PmenuExtraSel  { }, -- Popup menu: Selected item "extra text"
-		-- PmenuSbar      { }, -- Popup menu: Scrollbar.
-		-- PmenuThumb     { }, -- Popup menu: Thumb of the scrollbar.
+		Normal            { bg = background, fg = space_white.darken(10) }, -- Normal text
 		-- Question       { }, -- |hit-enter| prompt and yes/no questions
 		-- QuickFixLine   { }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
 		-- Search         { }, -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
@@ -151,10 +139,10 @@ local theme = lush(function(injected_functions)
 		TabLineSel        { fg = ice, bg = background, gui = "bold" }, -- Tab pages line, active tab page label
 
 		-- Title          { }, -- Titles for output from ":set all", ":autocmd" etc.
-		Visual            { bg = bluey }, -- Visual mode selection
-		VisualNOS         { bg = bluey.darken(20) }, -- Visual mode selection when vim is "Not Owning the Selection".
+		Visual            { bg = background.lighten(10) }, -- Visual mode selection
+		VisualNOS         { bg = background.lighten(15) }, -- Visual mode selection when vim is "Not Owning the Selection".
 		WarningMsg        { fg = yellow }, -- Warning messages
-		Whitespace        { fg = background.lighten(15) }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
+		Whitespace        { fg = background.lighten(25) }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
 		-- Winseparator   { }, -- Separator between window splits. Inherts from |hl-VertSplit| by default, which it will replace eventually.
 		-- WildMenu       { }, -- Current match in 'wildmenu' completion
 		-- WinBar         { }, -- Window bar of current window
@@ -170,7 +158,7 @@ local theme = lush(function(injected_functions)
 
 		Comment           { fg = Normal.bg.lighten(30) }, -- Any comment
 
-		-- Constant       { }, -- (*) Any constant
+		Constant          { fg = space_white, gui = "bold" }, -- (*) Any constant
 		String            { fg = green }, --   A string constant: "this is a string"
 		Character         { fg = String.fg.lighten(60) }, --   A character constant: 'c', '\n'
 		Number            { fg = tomato }, --   A number constant: 234, 0xff
@@ -265,8 +253,8 @@ local theme = lush(function(injected_functions)
 		GitSignsAddNr                 { GitSignsAdd }, -- GitSignsAddNr  xxx links to GitSignsAdd
 
 		-- Flating windows
-		NormalFloat                   { bg = background.lighten(5), fg = space_white }, -- NormalFloat    xxx guifg=#cdd6f5 guibg=#181826
-		FloatTitle                    { fg = space_white }, -- FloatTitle     xxx guifg=#a6adc9
+		NormalFloat                   { bg = background.lighten(5), fg = Normal.fg }, -- NormalFloat    xxx guifg=#cdd6f5 guibg=#181826
+		FloatTitle                    { fg = Normal.fg }, -- FloatTitle     xxx guifg=#a6adc9
 		FloatFooter                   { FloatTitle }, -- FloatFooter    xxx links to FloatTitle
 		FlashPrompt                   { NormalFloat }, -- FlashPrompt    xxx links to NormalFloat
 		WhichKeyFloat                 { NormalFloat }, -- WhichKeyFloat  xxx links to NormalFloat
@@ -275,11 +263,11 @@ local theme = lush(function(injected_functions)
 		TelescopeBorder               { FloatBorder }, -- TelescopeBorder xxx links to FloatBorder
 		WhichKeyBorder                { FloatBorder }, -- WhichKeyBorder xxx links to FloatBorder
 
-		Pmenu                         { bg = background.lighten(10), fg = space_white.darken(10) }, -- Pmenu          xxx guifg=#9399b3 guibg=#2b2b3d
+		Pmenu                         { bg = background.lighten(10), fg = Normal.fg.darken(10) }, -- Pmenu          xxx guifg=#9399b3 guibg=#2b2b3d
 		PmenuKind                     { Pmenu }, -- PmenuKind      xxx links to Pmenu
 		PmenuExtra                    { Pmenu }, -- PmenuExtra     xxx links to Pmenu
 		NoicePopupmenu                { Pmenu }, -- NoicePopupmenu xxx links to Pmenu
-		PmenuSel                      { bg = background.lighten(20), fg = space_white, gui = "bold" }, -- PmenuSel       xxx cterm=bold gui=bold guibg=#45475b
+		PmenuSel                      { bg = background.lighten(20), fg = Normal.fg, gui = "bold" }, -- PmenuSel       xxx cterm=bold gui=bold guibg=#45475b
 		PmenuKindSel                  { PmenuSel }, -- PmenuKindSel   xxx links to PmenuSel
 		PmenuExtraSel                 { PmenuSel }, -- PmenuExtraSel  xxx links to PmenuSel
 		PmenuSbar                     { bg = background.lighten(15) }, -- PmenuSbar      xxx guibg=#45475b
@@ -300,7 +288,7 @@ local theme = lush(function(injected_functions)
 		NeoTreeFileNameOpened         { fg = "#f5c2e8" }, -- NeoTreeFileNameOpened xxx guifg=#f5c2e8
 		NeoTreeTitleBar               { bg = gold, fg = background }, -- NeoTreeTitleBar xxx guifg=#181826 guibg=#89b4fb
 		NeoTreeGitStaged              { fg = green }, -- NeoTreeGitStaged xxx guifg=#a6e3a2
-		NeoTreeGitUntracked           { fg = space_white }, -- NeoTreeGitUntracked xxx guifg=#cba6f8
+		NeoTreeGitUntracked           { fg = Normal.fg }, -- NeoTreeGitUntracked xxx guifg=#cba6f8
 		NeoTreeGitUnstaged            { fg = tomato }, -- NeoTreeGitUnstaged xxx guifg=#f38ba9
 		NeoTreeGitModified            { fg = yellow }, -- NeoTreeGitModified xxx guifg=#f9e2b0
 		NeoTreeGitIgnored             { fg = sky.desaturate(75).darken(50) }, -- NeoTreeGitIgnored xxx guifg=#6c7087
@@ -312,8 +300,8 @@ local theme = lush(function(injected_functions)
 		NeoTreeRootName               { gui = "bold", fg = gold }, -- NeoTreeRootName xxx cterm=bold gui=bold guifg=#89b4fb
 		NeoTreeIndentMarker           { fg = bluey.mix(background, 75) }, -- NeoTreeIndentMarker xxx guifg=#6c7087
 		NeoTreeExpander               { NeoTreeIndentMarker }, -- NeoTreeExpander xxx guifg=#6c7087
-		NeoTreeNormalNC               { bg = background, fg = space_white }, -- NeoTreeNormalNC xxx guifg=#cdd6f5 guibg=#181826
-		NeoTreeNormal                 { bg = background, fg = space_white }, -- NeoTreeNormal  xxx guifg=#cdd6f5 guibg=#181826
+		NeoTreeNormalNC               { bg = background, fg = Normal.fg }, -- NeoTreeNormalNC xxx guifg=#cdd6f5 guibg=#181826
+		NeoTreeNormal                 { bg = background, fg = Normal.fg }, -- NeoTreeNormal  xxx guifg=#cdd6f5 guibg=#181826
 		NeoTreeDirectoryIcon          { fg = bluey }, -- NeoTreeDirectoryIcon xxx guifg=#89b4fb
 		NeoTreeDirectoryName          { fg = sky }, -- NeoTreeDirectoryName xxx guifg=#89b4fb
 
@@ -336,10 +324,10 @@ local theme = lush(function(injected_functions)
 		NoiceScrollbarThumb           { PmenuThumb }, -- NoiceScrollbarThumb xxx links to PmenuThumb
 
 		NotifyBackground              { Normal }, -- NotifyBackground xxx links to Normal
-		NotifyERRORBody               { fg = space_white.darken(25) }, -- NotifyERRORBody xxx links to Normal
-		NotifyWARNBody                { fg = space_white.darken(25) }, -- NotifyWARNBody xxx links to Normal
-		NotifyINFOBody                { fg = space_white.darken(25) }, -- NotifyINFOBody xxx links to Normal
-		NotifyDEBUGBody               { fg = space_white.darken(25) }, -- NotifyDEBUGBody xxx links to Normal
+		NotifyERRORBody               { fg = Normal.fg.darken(25) }, -- NotifyERRORBody xxx links to Normal
+		NotifyWARNBody                { fg = Normal.fg.darken(25) }, -- NotifyWARNBody xxx links to Normal
+		NotifyINFOBody                { fg = Normal.fg.darken(25) }, -- NotifyINFOBody xxx links to Normal
+		NotifyDEBUGBody               { fg = Normal.fg.darken(25) }, -- NotifyDEBUGBody xxx links to Normal
 
 		NotifyERRORBorder             { DiagnosticError }, -- NotifyERRORBorder xxx guifg=#8a1f1f
 		NotifyWARNBorder              { DiagnosticWarn }, -- NotifyWARNBorder xxx guifg=#79491d
