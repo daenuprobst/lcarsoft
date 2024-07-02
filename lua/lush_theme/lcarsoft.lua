@@ -45,6 +45,7 @@
 local lush = require("lush")
 local hsl = lush.hsl
 
+local black = hsl("#06090d")
 local background = hsl("#0a0e14")
 local space_white = hsl("#f5f6fa")
 local violet_creme = hsl("#ddbbff")
@@ -88,10 +89,10 @@ local theme = lush(function(injected_functions)
 		--
 		-- See :h highlight-groups
 		--
-		ColorColumn    { }, -- Columns set with 'colorcolumn'
-		Conceal        { }, -- Placeholder characters substituted for concealed text (see 'conceallevel')
+		-- ColorColumn    { }, -- Columns set with 'colorcolumn'
+		-- Conceal        { }, -- Placeholder characters substituted for concealed text (see 'conceallevel')
 		Cursor            { fg = background, bg = gold }, -- Character under the cursor
-		-- CurSearch      { }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
+		CurSearch         { fg = background, bg = butterscotch }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
 		-- lCursor        { }, -- Character under the cursor when |language-mapping| is used (see 'guicursor')
 		-- CursorIM       { }, -- Like Cursor, but used when in IME mode |CursorIM|
 		CursorColumn      { bg = background.lighten(5) }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
@@ -126,7 +127,7 @@ local theme = lush(function(injected_functions)
 		Normal            { bg = background, fg = space_white.darken(10) }, -- Normal text
 		-- Question       { }, -- |hit-enter| prompt and yes/no questions
 		-- QuickFixLine   { }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
-		-- Search         { }, -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
+		Search            { bg = butterscotch.mix(background, 75) }, -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
 		-- SpecialKey     { }, -- Unprintable characters: text displayed differently from what it really is. But not 'listchars' whitespace. |hl-Whitespace|
 		-- SpellBad       { }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
 		-- SpellCap       { }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
@@ -134,8 +135,8 @@ local theme = lush(function(injected_functions)
 		-- SpellRare      { }, -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
 		-- StatusLine     { fg = background, bg = african_violet }, -- Status line of current window
 		-- StatusLineNC   { fg = background, bg = almond_creme }, -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
-		TabLine           { fg = ice.darken(50).desaturate(75), bg = background.darken(100) }, -- Tab pages line, not active tab page label
-		TabLineFill       { bg = background.darken(100) }, -- Tab pages line, where there are no labels
+		TabLine           { fg = ice.darken(50).desaturate(75), bg = black }, -- Tab pages line, not active tab page label
+		TabLineFill       { bg = black }, -- Tab pages line, where there are no labels
 		TabLineSel        { fg = ice, bg = background, gui = "bold" }, -- Tab pages line, active tab page label
 
 		-- Title          { }, -- Titles for output from ":set all", ":autocmd" etc.
@@ -159,7 +160,7 @@ local theme = lush(function(injected_functions)
 		Comment           { fg = Normal.bg.lighten(30) }, -- Any comment
 
 		Constant          { fg = space_white, gui = "bold" }, -- (*) Any constant
-		String            { fg = green }, --   A string constant: "this is a string"
+		String            { fg = green.darken(15) }, --   A string constant: "this is a string"
 		Character         { fg = String.fg.lighten(60) }, --   A character constant: 'c', '\n'
 		Number            { fg = tomato }, --   A number constant: 234, 0xff
 		Boolean           { fg = butterscotch, gui = "italic" }, --   A boolean constant: TRUE, false
@@ -224,11 +225,11 @@ local theme = lush(function(injected_functions)
 		-- DiagnosticVirtualTextInfo  { } , -- Used for "Info" diagnostic virtual text.
 		-- DiagnosticVirtualTextHint  { } , -- Used for "Hint" diagnostic virtual text.
 		-- DiagnosticVirtualTextOk    { } , -- Used for "Ok" diagnostic virtual text.
-		-- DiagnosticUnderlineError   { } , -- Used to underline "Error" diagnostics.
-		-- DiagnosticUnderlineWarn    { } , -- Used to underline "Warn" diagnostics.
-		-- DiagnosticUnderlineInfo    { } , -- Used to underline "Info" diagnostics.
-		-- DiagnosticUnderlineHint    { } , -- Used to underline "Hint" diagnostics.
-		-- DiagnosticUnderlineOk      { } , -- Used to underline "Ok" diagnostics.
+		DiagnosticUnderlineError      { sp = DiagnosticError.fg, gui = "undercurl" }, -- Used to underline "Error" diagnostics.
+		DiagnosticUnderlineWarn       { sp = DiagnosticWarn.fg, gui = "undercurl" }, -- Used to underline "Warn" diagnostics.
+		DiagnosticUnderlineInfo       { sp = DiagnosticInfo.fg, gui = "undercurl" }, -- Used to underline "Info" diagnostics.
+		DiagnosticUnderlineHint       { sp = DiagnosticHint.fg, gui = "undercurl" }, -- Used to underline "Hint" diagnostics.
+		DiagnosticUnderlineOk         { sp = DiagnosticOk.fg, gui = "undercurl" }, -- Used to underline "Ok" diagnostics.
 		-- DiagnosticFloatingError    { } , -- Used to color "Error" diagnostic messages in diagnostics float. See |vim.diagnostic.open_float()|
 		-- DiagnosticFloatingWarn     { } , -- Used to color "Warn" diagnostic messages in diagnostics float.
 		-- DiagnosticFloatingInfo     { } , -- Used to color "Info" diagnostic messages in diagnostics float.
@@ -263,7 +264,7 @@ local theme = lush(function(injected_functions)
 		TelescopeBorder               { FloatBorder }, -- TelescopeBorder xxx links to FloatBorder
 		WhichKeyBorder                { FloatBorder }, -- WhichKeyBorder xxx links to FloatBorder
 
-		Pmenu                         { bg = background.lighten(10), fg = Normal.fg.darken(10) }, -- Pmenu          xxx guifg=#9399b3 guibg=#2b2b3d
+		Pmenu                         { bg = background, fg = Normal.fg.darken(10) }, -- Pmenu          xxx guifg=#9399b3 guibg=#2b2b3d
 		PmenuKind                     { Pmenu }, -- PmenuKind      xxx links to Pmenu
 		PmenuExtra                    { Pmenu }, -- PmenuExtra     xxx links to Pmenu
 		NoicePopupmenu                { Pmenu }, -- NoicePopupmenu xxx links to Pmenu
